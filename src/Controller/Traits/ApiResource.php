@@ -7,4 +7,5 @@ namespace Costa\Package\Controller\Traits;
 trait ApiResource
 {
     use ApiIndex;
+    use ApiShow;
 }
