@@ -16,14 +16,12 @@ final class SectorResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-
+            'id'            => $this->id,
+            'name'          => $this->name,
+            'created_at'    => $this->created_at,
+            'updated_at'    => $this->updated_at,
             'department_id' => $this->department_id,
-
-            'departament' => new DepartamentResource($this->whenLoaded('departament')),
+            'departament'   => new DepartamentResource($this->whenLoaded('departament')),
         ];
     }
 }

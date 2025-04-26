@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Database\Seeders;
 
 use App\Models\Branch;
-use App\Models\Department;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BranchSeeder extends Seeder
+final class BranchSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::transaction(function(){
+        DB::transaction(function () {
             Branch::factory(5)->create();
         });
     }

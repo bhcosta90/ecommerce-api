@@ -5,21 +5,21 @@ declare(strict_types = 1);
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\DepartmentResource;
-use App\Models\Department;
+use App\Http\Resources\SectorResource;
+use App\Models\Sector;
 use Costa\Package\Controller\AsApiResource;
 
-final class DepartmentController extends Controller
+final class SectorController extends Controller
 {
     use AsApiResource;
 
     protected function model(): string
     {
-        return Department::class;
+        return Sector::class;
     }
 
     protected function resource(): string
     {
-        return DepartmentResource::class;
+        return SectorResource::class;
     }
 }
