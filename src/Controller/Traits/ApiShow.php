@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 namespace Costa\Package\Controller\Traits;
 
-use Costa\Package\Controller\Traits\Support\ByModelRoute;
+use Costa\Package\Controller\Traits\Support\ByQueryModel;
 use Costa\Package\Controller\Traits\Support\IncludeTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 trait ApiShow
 {
-    use ByModelRoute;
+    use ByQueryModel;
     use IncludeTrait;
 
     abstract protected function model(): string;
@@ -24,15 +24,10 @@ trait ApiShow
          */
         $resource = $this->resource();
 
-        $additional = [];
+        $params = request()->route()->parameters();
+        $id     = end($params);
 
-        if (app()->isLocal()) {
-            $additional += [
-                'includes' => $this->allowIncludes(),
-            ];
-        }
-
-        return new $resource($this->getModelByRoute())
-            ->additional($additional);
+        return new $resource($this->getQueryBuilder($id)->sole())
+            ->additional($this->getRouteIncludes());
     }
 }

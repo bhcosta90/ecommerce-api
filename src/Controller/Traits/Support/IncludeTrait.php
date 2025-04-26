@@ -18,4 +18,13 @@ trait IncludeTrait
     {
         return [];
     }
+
+    protected function getRouteIncludes(): array
+    {
+        if (app()->isLocal()) {
+            return $this->allowIncludes();
+        }
+
+        return [];
+    }
 }

@@ -5,22 +5,21 @@ declare(strict_types = 1);
 namespace Costa\Package\Controller\Traits\Support;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
-trait ByModelRoute
+trait ByQueryModel
 {
     use RawSqlTrait;
 
-    public function getModelByRoute(): Model
+    public function getQueryBuilder(?string $id = null): Builder
     {
-        $params = request()->route()->parameters();
-        $model  = $this->model();
+        $model = $this->model();
 
         /** @var Builder $queryModel */
         $queryModel = ($xModel = new $model())->query();
 
-        $id = end($params);
-        $queryModel->where($xModel->getKeyName(), $id);
+        if ($id) {
+            $queryModel->where($xModel->getKeyName(), $id);
+        }
 
         if ($includes = request('includes')) {
             $queryModel->with($this->getIncludes($includes));
@@ -28,6 +27,6 @@ trait ByModelRoute
 
         $this->rawSql($queryModel);
 
-        return $queryModel->sole();
+        return $queryModel;
     }
 }
