@@ -20,10 +20,8 @@ final class CategoryResource extends JsonResource
             'name'       => $this->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-
-            'sector_id' => $this->sector_id,
-
-            'sector' => new SectorResource($this->whenLoaded('sector')),
+            'sector_id'  => $this->sector_id,
+            'sector'     => new SectorResource($this->whenLoaded('sector')),
         ];
     }
 }

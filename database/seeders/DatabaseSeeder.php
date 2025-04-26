@@ -16,6 +16,8 @@ final class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             DepartmentSeeder::class,
             SectorSeeder::class,
+            CategorySeeder::class,
+            SubCategorySeeder::class,
         ]);
     }
 }
