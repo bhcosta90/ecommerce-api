@@ -21,7 +21,7 @@ final class SectorResource extends JsonResource
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
             'department_id' => $this->department_id,
-            'department'    => new DepartamentResource($this->whenLoaded('department')),
+            'department'    => new DepartmentResource($this->whenLoaded('department')),
             'actions'       => $this->actions,
         ];
     }

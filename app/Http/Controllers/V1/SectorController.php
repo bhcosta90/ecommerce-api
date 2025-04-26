@@ -27,7 +27,6 @@ final class SectorController extends Controller
     {
         return [
             'department',
-            'department.sectors',
         ];
     }
 }
