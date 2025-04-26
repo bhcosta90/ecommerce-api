@@ -13,7 +13,10 @@ final class DepartmentSeeder extends Seeder
     public function run(): void
     {
         DB::transaction(function () {
-            Department::factory(5)->create();
+            Department::factory(1)->create([
+                'id' => '019673a6-c4d7-70a1-8031-c91075ae77de',
+            ]);
+            Department::factory(4)->create();
         });
     }
 }

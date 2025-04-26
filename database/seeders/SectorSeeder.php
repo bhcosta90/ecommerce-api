@@ -14,11 +14,16 @@ final class SectorSeeder extends Seeder
     public function run(): void
     {
         DB::transaction(function () {
-            Department::query()->each(function ($department) {
+            ($departments = Department::query())->each(function ($department) {
                 Sector::factory(5)->create([
                     'department_id' => $department->id,
                 ]);
             });
+
+            Sector::factory()->create([
+                'id'            => '019673a6-c4f6-702c-9711-65f370a52f73',
+                'department_id' => $departments->first()->id,
+            ]);
         });
     }
 }
