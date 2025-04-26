@@ -15,13 +15,23 @@ final class SectorSeeder extends Seeder
     {
         DB::transaction(function () {
             ($departments = Department::query())->each(function ($department) {
-                Sector::factory(5)->create([
+                Sector::factory(rand(2, 4))->create([
                     'department_id' => $department->id,
                 ]);
             });
 
             Sector::factory()->create([
                 'id'            => '019673a6-c4f6-702c-9711-65f370a52f73',
+                'department_id' => $departments->first()->id,
+            ]);
+
+            Sector::factory()->create([
+                'id'            => '019673a6-c4f6-702c-9711-65f370a52f74',
+                'department_id' => $departments->first()->id,
+            ]);
+
+            Sector::factory()->create([
+                'id'            => '019673a6-c4f6-702c-9711-65f370a52f75',
                 'department_id' => $departments->first()->id,
             ]);
         });

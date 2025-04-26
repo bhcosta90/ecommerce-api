@@ -15,13 +15,23 @@ final class CategorySeeder extends Seeder
     {
         DB::transaction(function () {
             ($sectors = Sector::query())->each(function ($department) {
-                Category::factory(5)->create([
+                Category::factory(rand(2, 4))->create([
                     'sector_id' => $department->id,
                 ]);
             });
 
             Category::factory()->create([
                 'id'        => '019673a6-c53c-71f7-8695-8cbd094112f7',
+                'sector_id' => $sectors->first()->id,
+            ]);
+
+            Category::factory()->create([
+                'id'        => '019673a6-c53c-71f7-8695-8cbd094112f8',
+                'sector_id' => $sectors->first()->id,
+            ]);
+
+            Category::factory()->create([
+                'id'        => '019673a6-c53c-71f7-8695-8cbd094112f9',
                 'sector_id' => $sectors->first()->id,
             ]);
         });

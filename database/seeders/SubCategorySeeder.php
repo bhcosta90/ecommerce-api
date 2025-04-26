@@ -15,13 +15,23 @@ final class SubCategorySeeder extends Seeder
     {
         DB::transaction(function () {
             ($categories = Category::query())->each(function ($department) {
-                SubCategory::factory(5)->create([
+                SubCategory::factory(rand(2, 4))->create([
                     'category_id' => $department->id,
                 ]);
             });
 
             SubCategory::factory()->create([
                 'id'          => '019673a6-cb1f-71bf-ac8a-6764e53234a0',
+                'category_id' => $categories->first()->id,
+            ]);
+
+            SubCategory::factory()->create([
+                'id'          => '019673a6-cb1f-71bf-ac8a-6764e53234a1',
+                'category_id' => $categories->first()->id,
+            ]);
+
+            SubCategory::factory()->create([
+                'id'          => '019673a6-cb1f-71bf-ac8a-6764e53234a2',
                 'category_id' => $categories->first()->id,
             ]);
         });
