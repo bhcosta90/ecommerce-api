@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Casts\ValueCast;
 use App\Enums\Product\Availability;
 use App\Enums\Product\FinishStock;
+use Costa\Package\Model\AsModel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,7 @@ use Override;
 
 final class Product extends Model
 {
+    use AsModel;
     use HasFactory;
     use HasUuids;
     use SoftDeletes;

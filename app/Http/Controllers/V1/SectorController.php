@@ -7,11 +7,11 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SectorResource;
 use App\Models\Sector;
-use Costa\Package\Controller\AsApiResource;
+use Costa\Package\Controller\Traits\ApiResource;
 
 final class SectorController extends Controller
 {
-    use AsApiResource;
+    use ApiResource;
 
     protected function model(): string
     {
@@ -21,5 +21,13 @@ final class SectorController extends Controller
     protected function resource(): string
     {
         return SectorResource::class;
+    }
+
+    protected function allowIncludes(): array
+    {
+        return [
+            'department',
+            'department.sectors',
+        ];
     }
 }

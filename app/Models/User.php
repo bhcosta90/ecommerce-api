@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Costa\Package\Model\AsModel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 final class User extends Authenticatable
 {
+    use AsModel;
     use HasApiTokens;
     use HasFactory;
     use HasFeatures;
