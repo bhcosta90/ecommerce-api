@@ -21,17 +21,17 @@ final class SubCategorySeeder extends Seeder
             });
 
             SubCategory::factory()->create([
-                'id'          => '019673a6-cb1f-71bf-ac8a-6764e53234a0',
+                'id'          => '019673a6-c4d7-70a1-8031-c91075ae77d0',
                 'category_id' => $categories->first()->id,
             ]);
 
             SubCategory::factory()->create([
-                'id'          => '019673a6-cb1f-71bf-ac8a-6764e53234a1',
+                'id'          => '019673a6-c4d7-70a1-8031-c91075ae77d1',
                 'category_id' => $categories->first()->id,
             ]);
 
             SubCategory::factory()->create([
-                'id'          => '019673a6-cb1f-71bf-ac8a-6764e53234a2',
+                'id'          => '019673a6-c4d7-70a1-8031-c91075ae77d2',
                 'category_id' => $categories->first()->id,
             ]);
         });

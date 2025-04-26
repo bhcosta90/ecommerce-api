@@ -21,17 +21,17 @@ final class SectorSeeder extends Seeder
             });
 
             Sector::factory()->create([
-                'id'            => '019673a6-c4f6-702c-9711-65f370a52f73',
+                'id'            => '019673a6-c4d7-70a1-8031-c91075ae77d0',
                 'department_id' => $departments->first()->id,
             ]);
 
             Sector::factory()->create([
-                'id'            => '019673a6-c4f6-702c-9711-65f370a52f74',
+                'id'            => '019673a6-c4d7-70a1-8031-c91075ae77d1',
                 'department_id' => $departments->first()->id,
             ]);
 
             Sector::factory()->create([
-                'id'            => '019673a6-c4f6-702c-9711-65f370a52f75',
+                'id'            => '019673a6-c4d7-70a1-8031-c91075ae77d2',
                 'department_id' => $departments->first()->id,
             ]);
         });

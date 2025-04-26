@@ -14,15 +14,15 @@ final class DepartmentSeeder extends Seeder
     {
         DB::transaction(function () {
             Department::factory()->create([
-                'id' => '019673a6-c4d7-70a1-8031-c91075ae77de',
+                'id' => '019673a6-c4d7-70a1-8031-c91075ae77d0',
             ]);
 
             Department::factory()->create([
-                'id' => '019673a6-c4d7-70a1-8031-c91075ae77df',
+                'id' => '019673a6-c4d7-70a1-8031-c91075ae77d1',
             ]);
 
             Department::factory()->create([
-                'id' => '019673a6-c4d7-70a1-8031-c91075ae77dg',
+                'id' => '019673a6-c4d7-70a1-8031-c91075ae77d2',
             ]);
 
             Department::factory(rand(1, 2))->create();
