@@ -6,7 +6,7 @@ namespace Costa\Package\Controller\Traits\Support;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait ByQueryModel
+trait QueryModel
 {
     use RawSqlTrait;
 

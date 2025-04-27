@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 namespace Costa\Package\Controller\Traits;
 
-use Costa\Package\Controller\Traits\Support\ByQueryModel;
+use Costa\Package\Controller\Traits\Support\QueryModel;
 use Costa\Package\Controller\Traits\Support\IncludeTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 trait ApiShow
 {
-    use ByQueryModel;
+    use QueryModel;
     use IncludeTrait;
 
     abstract protected function model(): string;
