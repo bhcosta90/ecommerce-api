@@ -15,18 +15,16 @@ trait ByQueryModel
         $model = $this->model();
 
         /** @var Builder $queryModel */
-        $queryModel = ($xModel = new $model())->query();
+        $queryModel = new $model()->query();
 
         if ($id) {
-            $queryModel->where($xModel->getKeyName(), $id);
+            $queryModel->where($queryModel->getModel()->getKeyName(), $id);
         }
 
         if ($includes = request('includes')) {
             $queryModel->with($this->getIncludes($includes));
         }
 
-        $this->rawSql($queryModel);
-
-        return $queryModel;
+        return tap($queryModel, fn ($query) => $this->rawSql($query));
     }
 }
