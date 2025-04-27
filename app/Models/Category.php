@@ -41,7 +41,7 @@ final class Category extends Model
     {
         $builder->whereHas(
             'sector',
-            fn ($builder) => $builder->select('id')->byDepartmentId($params),
+            fn (Builder $builder) => $builder->select('id')->byDepartmentId($params),
         );
     }
 }

@@ -41,7 +41,7 @@ final class SubCategory extends Model
     {
         $builder->whereHas(
             'category',
-            fn ($builder) => $builder->select('id')->bySectorId($params),
+            fn (Builder $builder) => $builder->select('id')->bySectorId($params),
         );
     }
 
@@ -50,7 +50,7 @@ final class SubCategory extends Model
     {
         $builder->whereHas(
             'category.sector',
-            fn ($builder) => $builder->select('id')->byDepartmentId($params),
+            fn (Builder $builder) => $builder->select('id')->byDepartmentId($params),
         );
     }
 }
