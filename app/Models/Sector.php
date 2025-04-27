@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace App\Models;
 
 use Costa\Package\Model\AsModel;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,5 +28,11 @@ final class Sector extends Model
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
+    }
+
+    #[Scope]
+    public function byDepartmentId(Builder $builder, array $params = []): void
+    {
+        $builder->whereIn('department_id', $params);
     }
 }

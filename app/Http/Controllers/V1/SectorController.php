@@ -29,4 +29,11 @@ final class SectorController extends Controller
             'department',
         ];
     }
+
+    protected function allowFilters(): array
+    {
+        return [
+            'department_id',
+        ];
+    }
 }

@@ -31,7 +31,7 @@ trait QueryModel
         }
 
         if (filled($filters)) {
-            $this->getFilters($queryModel);
+            $this->getFilters($queryModel, $filters);
         }
 
         return tap($queryModel, fn ($query) => $this->rawSql($query));
