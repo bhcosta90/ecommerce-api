@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     include __DIR__ . '/v1/auth.php';
     Route::middleware('auth:sanctum')->group(function () {
+        include __DIR__ . '/v1/branch.php';
+
         include __DIR__ . '/v1/category.php';
 
         include __DIR__ . '/v1/department.php';
