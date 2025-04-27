@@ -21,33 +21,32 @@ trait FilterTrait
                 continue;
             }
 
-            $validFilter = $value;
-            $scope       = true;
+            [$validFilter, $scope] = is_string($key)
+                ? [$key, false]
+                : [$value, true];
 
-            if (is_string($key)) {
-                $validFilter = $key;
-                $scope       = false;
+            if (!array_key_exists($validFilter, $filters)) {
+                continue;
             }
 
-            if (array_key_exists($validFilter, $filters)) {
-                if ($scope) {
-                    $nameFilter = str("by_{$validFilter}")->camel()->toString();
-                    $nameScoped = str("scope_by_{$validFilter}")->camel()->toString();
+            if ($scope) {
+                $this->applyScopedFilter(
+                    $builder,
+                    $classModel,
+                    $validFilter,
+                    $filters[$validFilter]
+                );
 
-                    if (!method_exists($classModel, $nameScoped) && !method_exists($classModel, $nameFilter)) {
-                        return;
-                    }
-
-                    $dataFilter = collect(explode('|', $filters[$validFilter] ?? ''))
-                        ->filter(fn ($item) => filled($item));
-
-                    if ($dataFilter->count()) {
-                        $builder->$nameFilter($dataFilter);
-                    }
-                } else {
-                    $builder->where($tableName . '.' . $validFilter, $value, $filters[$validFilter]);
-                }
+                continue;
             }
+
+            $this->applyDirectFilter(
+                $builder,
+                $tableName,
+                $validFilter,
+                $value,
+                $filters[$validFilter]
+            );
         }
     }
 
@@ -63,5 +62,27 @@ trait FilterTrait
         }
 
         return [];
+    }
+
+    protected function applyScopedFilter(Builder $builder, $classModel, string $validFilter, string $filterValue): void
+    {
+        $nameFilter = str("by_{$validFilter}")->camel()->toString();
+        $nameScoped = str("scope_by_{$validFilter}")->camel()->toString();
+
+        if (!method_exists($classModel, $nameScoped) && !method_exists($classModel, $nameFilter)) {
+            return;
+        }
+
+        $dataFilter = collect(explode('|', $filterValue))
+            ->filter(fn ($item) => filled($item));
+
+        if ($dataFilter->isNotEmpty()) {
+            $builder->$nameFilter($dataFilter);
+        }
+    }
+
+    protected function applyDirectFilter(Builder $builder, string $tableName, string $validFilter, $value, string $filterValue): void
+    {
+        $builder->where("{$tableName}.{$validFilter}", $value, $filterValue);
     }
 }
