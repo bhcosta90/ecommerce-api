@@ -27,7 +27,21 @@ trait ApiShow
         $params = request()->route()->parameters();
         $id     = end($params);
 
+        $additional = [];
+
+        if ($addAdditional = $this->getRouteIncludes()) {
+            $additional += [
+                'includes' => $addAdditional,
+            ];
+        }
+
+        if ($addAdditional = $this->getRouteFilters()) {
+            $additional += [
+                'filters' => $addAdditional,
+            ];
+        }
+
         return new $resource($this->getQueryBuilder($id)->sole())
-            ->additional($this->getRouteIncludes());
+            ->additional($additional);
     }
 }

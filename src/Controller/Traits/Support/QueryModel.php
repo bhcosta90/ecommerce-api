@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait QueryModel
 {
+    use FilterTrait;
+    use IncludeTrait;
     use RawSqlTrait;
 
-    public function getQueryBuilder(?string $id = null): Builder
-    {
+    public function getQueryBuilder(
+        ?string $id = null,
+        ?string $includes = null,
+        ?array $filters = [],
+    ): Builder {
         $model = $this->model();
 
         /** @var Builder $queryModel */
@@ -21,8 +26,12 @@ trait QueryModel
             $queryModel->where($queryModel->getModel()->getKeyName(), $id);
         }
 
-        if ($includes = request('includes')) {
+        if (filled($includes)) {
             $queryModel->with($this->getIncludes($includes));
+        }
+
+        if (filled($filters)) {
+            $this->getFilters($queryModel);
         }
 
         return tap($queryModel, fn ($query) => $this->rawSql($query));
