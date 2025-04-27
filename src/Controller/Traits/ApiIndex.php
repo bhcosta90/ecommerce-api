@@ -52,6 +52,6 @@ trait ApiIndex
 
     protected function getTypePaginate(): string
     {
-        return 'simplePaginate';
+        return 'paginate';
     }
 }

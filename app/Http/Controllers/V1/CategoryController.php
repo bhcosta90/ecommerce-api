@@ -29,4 +29,12 @@ final class CategoryController extends Controller
             'sector',
         ];
     }
+
+    protected function allowFilters(): array
+    {
+        return [
+            'sector_id',
+            'department_id',
+        ];
+    }
 }

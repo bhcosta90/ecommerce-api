@@ -29,4 +29,13 @@ final class SubCategoryController extends Controller
             'category',
         ];
     }
+
+    protected function allowFilters(): array
+    {
+        return [
+            'sector_id',
+            'department_id',
+            'category_id',
+        ];
+    }
 }
