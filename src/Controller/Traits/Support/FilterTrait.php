@@ -17,6 +17,10 @@ trait FilterTrait
         $tableName  = $classModel->getTable();
 
         foreach ($this->allowFilters() as $key => $value) {
+            if (blank($value)) {
+                continue;
+            }
+
             $validFilter = $value;
             $scope       = true;
 
@@ -35,10 +39,11 @@ trait FilterTrait
                     }
 
                     $dataFilter = collect(explode('|', $filters[$validFilter] ?? ''))
-                        ->filter(fn ($item) => filled($item))
-                        ->toArray();
+                        ->filter(fn ($item) => filled($item));
 
-                    $builder->$nameFilter(array_values($dataFilter));
+                    if ($dataFilter->count()) {
+                        $builder->$nameFilter($dataFilter);
+                    }
                 } else {
                     $builder->where($tableName . '.' . $validFilter, $value, $filters[$validFilter]);
                 }

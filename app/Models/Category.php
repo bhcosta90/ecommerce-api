@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 final class Category extends Model
 {
@@ -31,13 +32,13 @@ final class Category extends Model
     }
 
     #[Scope]
-    public function bySectorId(Builder $builder, array $params = []): void
+    public function bySectorId(Builder $builder, Collection $params): void
     {
         $builder->whereIn('sector_id', $params);
     }
 
     #[Scope]
-    public function byDepartmentId(Builder $builder, array $params = []): void
+    public function byDepartmentId(Builder $builder, Collection $params): void
     {
         $builder->whereHas(
             'sector',

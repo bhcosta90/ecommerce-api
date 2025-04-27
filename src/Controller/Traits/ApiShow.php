@@ -17,14 +17,14 @@ trait ApiShow
 
     abstract protected function resource(): string;
 
-    public function show()
+    public function show(): JsonResource
     {
         /**
          * @var JsonResource $resource
          */
         $resource = $this->resource();
 
-        $params = request()->route()->parameters();
+        $params = request()->route()?->parameters();
         $id     = end($params);
 
         $additional = [];
@@ -41,7 +41,11 @@ trait ApiShow
             ];
         }
 
-        return new $resource($this->getQueryBuilder($id)->sole())
+        return new $resource($this->getQueryBuilder(
+            id: $id,
+            includes: request('includes', ''),
+            filters: request('filters', []),
+        )->sole())
             ->additional($additional);
     }
 }

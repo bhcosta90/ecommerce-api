@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 final class Sector extends Model
 {
@@ -31,7 +32,7 @@ final class Sector extends Model
     }
 
     #[Scope]
-    public function byDepartmentId(Builder $builder, array $params = []): void
+    public function byDepartmentId(Builder $builder, Collection $params): void
     {
         $builder->whereIn('department_id', $params);
     }
