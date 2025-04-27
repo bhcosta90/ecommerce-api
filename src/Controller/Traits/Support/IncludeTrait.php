@@ -21,10 +21,6 @@ trait IncludeTrait
 
     protected function getRouteIncludes(): array
     {
-        if (app()->isLocal()) {
-            return $this->allowIncludes();
-        }
-
-        return [];
+        return app()->isLocal() ? $this->allowIncludes() : [];
     }
 }

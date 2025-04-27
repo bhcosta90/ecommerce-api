@@ -21,32 +21,16 @@ trait FilterTrait
                 continue;
             }
 
-            [$validFilter, $scope] = is_string($key)
-                ? [$key, false]
-                : [$value, true];
+            [$validFilter, $scope] = $this->determineFilter($key, $value);
 
             if (!array_key_exists($validFilter, $filters)) {
                 continue;
             }
 
-            if ($scope) {
-                $this->applyScopedFilter(
-                    $builder,
-                    $classModel,
-                    $validFilter,
-                    $filters[$validFilter]
-                );
+            $scope
+                ? $this->applyScopedFilter($builder, $classModel, $validFilter, $filters[$validFilter])
+                : $this->applyDirectFilter($builder, $tableName, $validFilter, $value, $filters[$validFilter]);
 
-                continue;
-            }
-
-            $this->applyDirectFilter(
-                $builder,
-                $tableName,
-                $validFilter,
-                $value,
-                $filters[$validFilter]
-            );
         }
     }
 
@@ -57,14 +41,10 @@ trait FilterTrait
 
     protected function getRouteFilters(): array
     {
-        if (app()->isLocal()) {
-            return $this->allowFilters();
-        }
-
-        return [];
+        return app()->isLocal() ? $this->allowFilters() : [];
     }
 
-    protected function applyScopedFilter(Builder $builder, $classModel, string $validFilter, string $filterValue): void
+    private function applyScopedFilter(Builder $builder, $classModel, string $validFilter, string $filterValue): void
     {
         $nameFilter = str("by_{$validFilter}")->camel()->toString();
         $nameScoped = str("scope_by_{$validFilter}")->camel()->toString();
@@ -81,8 +61,15 @@ trait FilterTrait
         }
     }
 
-    protected function applyDirectFilter(Builder $builder, string $tableName, string $validFilter, $value, string $filterValue): void
+    private function applyDirectFilter(Builder $builder, string $tableName, string $validFilter, $value, string $filterValue): void
     {
         $builder->where("{$tableName}.{$validFilter}", $value, $filterValue);
+    }
+
+    private function determineFilter(string | int $key, mixed $value): array
+    {
+        return is_string($key)
+            ? [$key, false]
+            : [$value, true];
     }
 }
