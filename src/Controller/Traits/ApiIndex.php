@@ -4,16 +4,16 @@ declare(strict_types = 1);
 
 namespace Costa\Package\Controller\Traits;
 
-use Costa\Package\Controller\Traits\Support\QueryModel;
 use Costa\Package\Controller\Traits\Support\IncludeTrait;
+use Costa\Package\Controller\Traits\Support\QueryModel;
 use Costa\Package\Controller\Traits\Support\RawSqlTrait;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 trait ApiIndex
 {
-    use QueryModel;
     use IncludeTrait;
+    use QueryModel;
     use RawSqlTrait;
 
     abstract protected function model(): string;
